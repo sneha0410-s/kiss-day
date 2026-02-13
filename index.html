@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kiss Day Card 💋</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  background:black;
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+}
+
+/* Frame */
+.frame{
+  width:90vw;
+  max-width:420px;
+  height:85vh;
+  margin:auto;
+  margin-top:5vh;
+  border-radius:25px;
+  border:2px solid hotpink;
+  box-shadow:0 0 25px hotpink;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Pages */
+.pages{
+  display:flex;
+  width:400%;
+  height:100%;
+  transition:transform 0.6s ease;
+}
+
+.page{
+  width:100%;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+/* Text */
+h1{
+  color:pink;
+  font-size:7vw;
+}
+
+p{
+  color:white;
+  font-size:4.5vw;
+  max-width:90%;
+}
+
+/* GIFs */
+img{
+  width:70%;
+  max-width:220px;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+/* Rain Emojis */
+.rain{
+  position:absolute;
+  top:-50px;
+  font-size:22px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+  }
+}
+
+/* Last Page Glow Text */
+.glow{
+  font-size:6vw;
+  color:#ff69b4;
+  text-shadow:
+    0 0 10px hotpink,
+    0 0 20px hotpink,
+    0 0 40px deeppink,
+    0 0 60px deeppink;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  50%{ opacity:0.6; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="frame">
+
+  <div class="pages" id="pages">
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <h1>Happy Kiss Day 💋</h1>
+      <p>
+        If I had one wish…<br>
+        I’d steal a thousand kisses from you today 👀
+      </p>
+      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OHF5OWtnOTF1bHlpanI3OWxoeXA1OTdrOHFrcGNodnExZ21qNnozOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/PFjXmKuwQsS9q/giphy.gif>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h1>Soft Naughty Thought 😚</h1>
+      <p>
+        Your lips + My lips =<br>
+        My favourite place to be forever 💞
+      </p>
+      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3c2g3NGhvdTZmdmFhbHFzZmZheXN6ZnNjb2N5dXR5ZnN6enhxeXZyZyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/fWFeUD6s0Y90Y/giphy.gif">
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+      <h1>One More Thing… 💭</h1>
+      <p>
+        Distance only makes me imagine<br>
+        your kisses more… and more… 💋
+      </p>
+      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bmN0OHJ5OHBndW44ejR6M3VpeXcxdWFuZXZ1Mnl1aHE1bHJxZHU1NCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/RJEIl2fBX3jAJOqSau/giphy.gif">
+    </div>
+
+    <!-- PAGE 4 LAST -->
+    <div class="page">
+      <div class="glow">
+        Can’t wait to feel<br>
+        your touch again… 💗💋👀
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* Swipe Function */
+let currentPage = 0;
+const pages = document.getElementById("pages");
+
+let startX = 0;
+
+document.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", e=>{
+  let endX = e.changedTouches[0].clientX;
+
+  if(startX - endX > 50){
+    nextPage();
+  }
+  if(endX - startX > 50){
+    prevPage();
+  }
+});
+
+function nextPage(){
+  if(currentPage < 3){
+    currentPage++;
+    updateSlide();
+  }
+}
+
+function prevPage(){
+  if(currentPage > 0){
+    currentPage--;
+    updateSlide();
+  }
+}
+
+function updateSlide(){
+  pages.style.transform = `translateX(-${currentPage*100}%)`;
+}
+
+/* Emoji Rain */
+function createRain(){
+  const emoji = ["💋","👀","💞","😘"];
+  const rain = document.createElement("div");
+  rain.classList.add("rain");
+  rain.innerHTML = emoji[Math.floor(Math.random()*emoji.length)];
+  rain.style.left = Math.random()*100 + "vw";
+  rain.style.animationDuration = (3+Math.random()*5)+"s";
+  document.body.appendChild(rain);
+
+  setTimeout(()=>{ rain.remove(); },8000);
+}
+
+setInterval(createRain,300);
+</script>
+
+</body>
+</html>
